@@ -177,7 +177,6 @@
         <h2>Input Nodes</h2>
         <p>Each pixel in our image becomes an input node to the neural network. So, let's say we have a tiny 28x28 pixel grayscale image.</p>
         <div class="test-your-knowledge">
-            <h3>Test Your Knowledge</h3>
             <h4>How many input nodes will our network have?</h4>
             <div id="question1">
                 <button class="check-button" onclick="checkAnswer('question1', '28')">28</button>
@@ -203,7 +202,6 @@
         <h2>Weights</h2>
         <p>In a fully connected network, <em>every</em> input node connects to <em>every</em> neuron in the hidden layer. Each of these connections has a weight associated with it.</p>
         <div class="test-your-knowledge">
-            <h3>Test Your Knowledge</h3>
             <h4>How many weights are there between the input layer (784 nodes) and the hidden layer (100 neurons)?</h4>
             <div id="question2">
                 <button class="check-button" onclick="checkAnswer('question2', '884')">884</button>
@@ -220,7 +218,6 @@
         <h2>Biases</h2>
         <p>In addition to weights, each neuron in the hidden layer typically has a bias term – a single extra number that helps the neuron learn.</p>
         <div class="test-your-knowledge">
-            <h3>Test Your Knowledge</h3>
             <h4>How many biases are there in our hidden layer?</h4>
             <div id="question3">
                 <button class="check-button" onclick="checkAnswer('question3', '1')">1</button>
@@ -234,10 +231,9 @@
     </section>
 
     <section id="section7">
-        <h2>Total Parameters (Easy)</h2>
+        <h2>Total Parameters</h2>
         <p>The total number of parameters we need to learn for <em>just this one layer</em> is the sum of the weights and the biases.</p>
         <div class="test-your-knowledge">
-            <h3>Test Your Knowledge</h3>
             <h4>Calculate the total number of parameters (weights + biases) for this layer.</h4>
             <div id="question4">
                 <button class="check-button" onclick="checkAnswer('question4', '78400')">78,400</button>
@@ -251,7 +247,7 @@
     </section>
 
     <section id="section8">
-        <h2>Hands-On Task (Easy)</h2>
+        <h2>Hands-On Task</h2>
         <p>Now, let's change things slightly. Imagine a 32x32 grayscale image and a hidden layer with 150 neurons.</p>
         <p>Calculate:</p>
         <ol>
