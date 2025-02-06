@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise Lesson 1 (Easy): The Parameter Explosion - Small Steps</title>
+    <title>Parameter Explosion - Easy Case: Grayscale Image</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -155,59 +155,121 @@
 </head>
 <body>
     <section id="section1">
-        <div class="image-placeholder">
-            <img src="/placeholder.svg?height=300&width=600" alt="the exercise lesson image small robot with kettlebells etc">
+    <div class="image-placeholder">
+            <img src="/placeholder.svg?height=300&width=600" alt="exercise robot image">
         </div>
-        <h1>Exercise: The Parameter Explosion</h1>
-        <p>We've learned that traditional neural networks struggle with images. It's because images have <em>lots</em> of pixels, and in a fully-connected network, <em>every</em> pixel connects to <em>every</em> neuron in the next layer. That's a <em>ton</em> of connections! Each connection has a 'weight,' which is a number the network needs to learn. Let's do some simple math to see how quickly this adds up, even for a <em>tiny</em> image.</p>
+        <h1>The Parameter Explosion: Grayscale</h1>
+        
+        <p>Let's start with the simplest case to understand why traditional neural networks struggle with images. We'll use a small grayscale image and a small hidden layer. Even in this simplified scenario, you'll see the number of parameters quickly grow.</p>
         <div class="continue-button" onclick="showNextSection(2)">Continue</div>
     </section>
 
     <section id="section2">
-        <p>Imagine a grayscale image that's only 28 pixels wide and 28 pixels high. Think of a super-blurry, almost unrecognizable picture! We'll also use a small hidden layer with just 100 neurons.</p>
+        <h2>Grayscale Images</h2>
+        <p>A grayscale image has only one value per pixel, representing its brightness (from black to white). Think of it like a black-and-white photo.</p>
         <div class="image-placeholder">
-            <img src="/placeholder.svg?height=300&width=600" alt="A very small 28x28 grayscale image (heavily pixelated, perhaps a simple shape like a circle or square). Next to it, a simple neural network diagram: a layer of 28x28 input nodes, a hidden layer of 100 nodes, and many lines connecting them.">
+            <img src="/placeholder.svg?height=300&width=600" alt="A 5x5 grayscale image represented as a grid, with each cell showing a different shade of gray.">
         </div>
-        <p>Our first job is to figure out how many input 'nodes' we have. Each pixel is one input node.</p>
         <div class="continue-button" onclick="showNextSection(3)">Continue</div>
     </section>
 
     <section id="section3">
-        <p>For our 28x28 grayscale image, it's easy: we just multiply the width by the height.</p>
-        <p>\[ \text{Input Nodes} = \text{Width} \times \text{Height} = 28 \times 28 = 784 \]</p>
+        <h2>Input Nodes</h2>
+        <p>Each pixel in our image becomes an input node to the neural network. So, let's say we have a tiny 28x28 pixel grayscale image.</p>
+        <div class="test-your-knowledge">
+            <h3>Test Your Knowledge</h3>
+            <h4>How many input nodes will our network have?</h4>
+            <div id="question1">
+                <button class="check-button" onclick="checkAnswer('question1', '28')">28</button>
+                <button class="check-button" onclick="checkAnswer('question1', '56')">56</button>
+                <button class="check-button" onclick="checkAnswer('question1', '784')">784</button>
+                <button class="check-button" onclick="checkAnswer('question1', '14')">14</button>
+            </div>
+            <p id="feedback1" style="display: none;"></p>
+        </div>
         <div class="continue-button" onclick="showNextSection(4)">Continue</div>
     </section>
 
     <section id="section4">
-        <p>Now, the crucial part: <em>each</em> of those 784 input nodes connects to <em>every single one</em> of the 100 neurons in our hidden layer. So, for <em>each</em> neuron in the hidden layer, there are 784 weights. To get the <em>total</em> number of weights, we multiply:</p>
-        <p>\[ \text{Weights} = \text{Input Nodes} \times \text{Hidden Neurons} = 784 \times 100 = 78,400 \]</p>
+        <h2>Hidden Layer</h2>
+        <p>Now, imagine a single hidden layer with just 100 neurons. This is a <em>very</em> small hidden layer compared to what's used in practice.</p>
+        <div class="image-placeholder">
+            <img src="/placeholder.svg?height=300&width=600" alt="Diagram showing the 784 input nodes connected to a hidden layer of 100 neurons.">
+        </div>
         <div class="continue-button" onclick="showNextSection(5)">Continue</div>
     </section>
 
     <section id="section5">
-        <p>We're not quite done! Each neuron in the hidden layer <em>also</em> has a 'bias' value. Since we have 100 neurons in the hidden layer, we have 100 biases.</p>
-        <p>\[ \text{Biases} = \text{Number of Hidden Neurons} = 100 \]</p>
+        <h2>Weights</h2>
+        <p>In a fully connected network, <em>every</em> input node connects to <em>every</em> neuron in the hidden layer. Each of these connections has a weight associated with it.</p>
+        <div class="test-your-knowledge">
+            <h3>Test Your Knowledge</h3>
+            <h4>How many weights are there between the input layer (784 nodes) and the hidden layer (100 neurons)?</h4>
+            <div id="question2">
+                <button class="check-button" onclick="checkAnswer('question2', '884')">884</button>
+                <button class="check-button" onclick="checkAnswer('question2', '7840')">7,840</button>
+                <button class="check-button" onclick="checkAnswer('question2', '78400')">78,400</button>
+                <button class="check-button" onclick="checkAnswer('question2', '784000')">784,000</button>
+            </div>
+            <p id="feedback2" style="display: none;"></p>
+        </div>
         <div class="continue-button" onclick="showNextSection(6)">Continue</div>
     </section>
 
     <section id="section6">
-        <p>Finally, to find the total number of parameters the network needs to learn, we just add the weights and the biases:</p>
-        <p>\[ \text{Total Parameters} = \text{Weights} + \text{Biases} = 78,400 + 100 = 78,500 \]</p>
+        <h2>Biases</h2>
+        <p>In addition to weights, each neuron in the hidden layer typically has a bias term – a single extra number that helps the neuron learn.</p>
+        <div class="test-your-knowledge">
+            <h3>Test Your Knowledge</h3>
+            <h4>How many biases are there in our hidden layer?</h4>
+            <div id="question3">
+                <button class="check-button" onclick="checkAnswer('question3', '1')">1</button>
+                <button class="check-button" onclick="checkAnswer('question3', '28')">28</button>
+                <button class="check-button" onclick="checkAnswer('question3', '100')">100</button>
+                <button class="check-button" onclick="checkAnswer('question3', '784')">784</button>
+            </div>
+            <p id="feedback3" style="display: none;"></p>
+        </div>
         <div class="continue-button" onclick="showNextSection(7)">Continue</div>
     </section>
 
     <section id="section7">
-        <p>So, even with this <em>tiny</em> image and a small hidden layer, we already have 78,500 parameters! That's a lot of numbers for the network to adjust during training. This is a first glimpse of the 'parameter explosion' problem.</p>
+        <h2>Total Parameters (Easy)</h2>
+        <p>The total number of parameters we need to learn for <em>just this one layer</em> is the sum of the weights and the biases.</p>
         <div class="test-your-knowledge">
             <h3>Test Your Knowledge</h3>
-            <h4>If we had only 50 neurons in the hidden layer (instead of 100), how many total parameters would there be?</h4>
-            <div id="options">
-                <button onclick="checkAnswer(0)">39,200</button>
-                <button onclick="checkAnswer(1)">39,250</button>
-                <button onclick="checkAnswer(2)">78,500</button>
-                <button onclick="checkAnswer(3)">78,450</button>
+            <h4>Calculate the total number of parameters (weights + biases) for this layer.</h4>
+            <div id="question4">
+                <button class="check-button" onclick="checkAnswer('question4', '78400')">78,400</button>
+                <button class="check-button" onclick="checkAnswer('question4', '78500')">78,500</button>
+                <button class="check-button" onclick="checkAnswer('question4', '78600')">78,600</button>
+                <button class="check-button" onclick="checkAnswer('question4', '884')">884</button>
             </div>
-            <p id="feedback" style="display: none;"></p>
+            <p id="feedback4" style="display: none;"></p>
+        </div>
+        <div class="continue-button" onclick="showNextSection(8)">Continue</div>
+    </section>
+
+    <section id="section8">
+        <h2>Hands-On Task (Easy)</h2>
+        <p>Now, let's change things slightly. Imagine a 32x32 grayscale image and a hidden layer with 150 neurons.</p>
+        <p>Calculate:</p>
+        <ol>
+            <li>The number of input nodes.</li>
+            <li>The number of weights between the input and hidden layer.</li>
+            <li>The number of biases in the hidden layer.</li>
+            <li>The <em>total</em> number of parameters (weights + biases). Show your work (you can type it out or write it on paper and describe your steps).</li>
+        </ol>
+        <div class="test-your-knowledge">
+            <h3>Test Your Knowledge</h3>
+            <h4>What are the answers?</h4>
+            <div id="question5">
+                <button class="check-button" onclick="checkAnswer('question5', '1024, 153600, 150, 153750')">1. 1024, 2. 153600, 3. 150, 4. 153750</button>
+                <button class="check-button" onclick="checkAnswer('question5', '1024, 15360, 150, 153750')">1. 1024, 2. 15360, 3. 150, 4. 153750</button>
+                <button class="check-button" onclick="checkAnswer('question5', '1024, 153600, 1500, 153750')">1. 1024, 2. 153600, 3. 1500, 4. 153750</button>
+                <button class="check-button" onclick="checkAnswer('question5', '102, 153600, 150, 153750')">1. 102, 2. 153600, 3. 150, 4. 153750</button>
+            </div>
+            <p id="feedback5" style="display: none;"></p>
         </div>
     </section>
 
@@ -232,18 +294,71 @@
             }, 500);
         }
 
-        function checkAnswer(index) {
-            const feedback = document.getElementById("feedback");
-            const options = [
-                { correct: false, explanation: "Remember to include the biases!" },
-                { correct: true, explanation: "Correct! Weights would be 784 * 50 = 39,200, and biases would be 50, for a total of 39,250." },
-                { correct: false, explanation: "This is the number of parameters for a hidden layer with 100 neurons." },
-                { correct: false, explanation: "Check your calculations again. How many input and how many hidden neurons?" }
-            ];
+        function checkAnswer(questionId, selectedAnswer) {
+            const feedbackElement = document.getElementById('feedback' + questionId.slice(-1));
+            const buttons = document.querySelectorAll(`#${questionId} .check-button`);
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
 
-            feedback.textContent = options[index].explanation;
-            feedback.style.color = options[index].correct ? "green" : "red";
-            feedback.style.display = "block";
+            let correctAnswer, explanation;
+            switch(questionId) {
+                case 'question1':
+                    correctAnswer = '784';
+                    explanation = {
+                        '28': "Remember, we need one input node *per pixel*.",
+                        '56': "Think about the total area of the image.",
+                        '784': "Correct! 28 rows * 28 columns = 784 pixels, hence 784 input nodes.",
+                        '14': "Remember to use the full image dimensions."
+                    };
+                    break;
+                case 'question2':
+                    correctAnswer = '78400';
+                    explanation = {
+                        '884': "We need to multiply, not add.",
+                        '7840': "Almost. Consider *all* connections.",
+                        '78400': "Exactly! 784 input nodes * 100 hidden neurons = 78,400 weights.",
+                        '784000': "Remember the formula: number of input nodes * number of hidden neurons."
+                    };
+                    break;
+                case 'question3':
+                    correctAnswer = '100';
+                    explanation = {
+                        '1': "Each hidden neuron has its *own* bias.",
+                        '28': "The number of biases is related to the hidden layer, not the input.",
+                        '100': "Correct! One bias per hidden neuron, so 100 biases.",
+                        '784': "Biases are related to hidden neurons."
+                    };
+                    break;
+                case 'question4':
+                    correctAnswer = '78500';
+                    explanation = {
+                        '78400': "Don't forget to include the biases in your total!",
+                        '78500': "Correct! 78,400 weights + 100 biases = 78,500 parameters.",
+                        '78600': "Careful calculation. Review your steps.",
+                        '884': "Remember to add *all* the weights and biases."
+                    };
+                    break;
+                case 'question5':
+                    correctAnswer = '1024, 153600, 150, 153750';
+                    explanation = {
+                        '1024, 153600, 150, 153750': "Correct!",
+                        '1024, 15360, 150, 153750': "Almost! Review the weights calculation.",
+                        '1024, 153600, 1500, 153750': "Check your number of bias.",
+                        '102, 153600, 150, 153750': "You calculated the number of input nodes wrong."
+                    };
+                    break;
+            }
+
+            if (selectedAnswer === correctAnswer) {
+                feedbackElement.textContent = "Correct! " + explanation[selectedAnswer];
+                feedbackElement.style.color = "green";
+            } else {
+                feedbackElement.textContent = "Incorrect. " + explanation[selectedAnswer];
+                feedbackElement.style.color = "red";
+            }
+            feedbackElement.style.display = "block";
         }
     </script>
 </body>
